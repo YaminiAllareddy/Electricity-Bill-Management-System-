@@ -1,0 +1,5 @@
+Tariff_id,Traiff_type,Unit_rate
+1,Specific tariffs,26
+2,Ad valorem tariffs,38
+3,Flat rate tariff,42
+4,Block rate tariff,33
