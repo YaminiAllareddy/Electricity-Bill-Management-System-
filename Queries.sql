@@ -1,77 +1,42 @@
 
--- Indexes
--- i
-CREATE INDEX Consumer_Phone_idx
-ON Consumer(Phone_number);
+-- Trigger
+DELIMITER $$
+CREATE TRIGGER Usage_history_update
+AFTER INSERT ON Readings
+FOR EACH ROW
+BEGIN 
+	DECLARE Sum_of_consumption decimal(7,2);
+
+	SELECT SUM(Reading_value) INTO Sum_of_consumption
+	FROM Readings
+	WHERE Consumer_number = NEW.Consumer_number;
+	
+	INSERT INTO Usage_history(Total_comsumption, Consumer_number, Reading_id)
+	VALUES(Sum_of_consumption, NEW.Consumer_number, NEW.Reading_id);
+
+END$$
 
 
--- ii
-CREATE INDEX Meter_Reading_idx
-ON Readings(Meter_type);
-
--- iii
-CREATE INDEX Payment_type_idx
-ON Payment(Payment_type);
-
-
-
--- Views
--- i
-CREATE VIEW ConsumerElectricityDetails AS
-SELECT EC.Electricity_name, C.Full_name, EC.Phone_number AS 'Company Phone',
-C.Phone_number AS 'Consumer Phone'
-FROM Electricity_company EC JOIN Consumer C 
-ON EC.Electricity_name=C.Electricity_name;
-
-SELECT * FROM ConsumerElectricityDetails;
-
-
--- ii
-CREATE VIEW UsageHistoryReadings AS 
-SELECT H.Consumer_number, R.Reading_value, R.Reading_date, R.Meter_type, H.Total_comsumption
-FROM Usage_history H JOIN Readings R 
-ON H.Reading_id=R.Reading_id
-GROUP BY R.Reading_value, R.Reading_date, R.Meter_type, H.Consumer_number, H.Total_comsumption;
-
-
-SELECT * FROM UsageHistoryReadings;
-
-
--- Transactions
--- i
-START TRANSACTION;
-
-DELETE FROM Usage_history WHERE Usage_history_id = '4';
+INSERT INTO Readings VALUES (322, '25/02/24', '300 kWh', 'Prepaid Meter', '1051785');
 
 SELECT * FROM Usage_history;
 
-ROLLBACK;
 
--- ii
-DELETE FROM Usage_history WHERE Usage_history_id = '4';
+-- Locking and Concurrent Access
+-- read
+LOCK TABLE Tariff READ;
 
-SELECT * FROM Usage_history;
+INSERT INTO Tariff VALUES ('6', 'Commercial tariff', '38');
 
-COMMIT;
+SELECT * FROM Tariff;
 
+-- write 
+LOCK TABLE Tariff WRITE;
 
---- Database Security
--- user1
-drop user 'User1'@'BillManagementSystem';
+INSERT INTO Tariff VALUES ('6', 'Commercial tariff', '38');
 
-CREATE USER 'User1'@'BillManagementSystem' IDENTIFIED WITH 
-mysql_native_password BY 'USRroot';
+SELECT * FROM Tariff;
 
-GRANT ALL ON `BillManagementSystem`.* TO 'User1'@'BillManagementSystem';
-
-SHOW GRANTS FOR 'User1'@'BillManagementSystem';
-
--- user2 
-CREATE USER 'UserIan'@'BillManagementSystem' IDENTIFIED WITH 
-mysql_native_password BY 'ianbriggs@245';
-
-GRANT SELECT,UPDATE ON `BillManagementSystem`.Readings TO 
-'UserIan'@'BillManagementSystem';
-
-SHOW GRANTS FOR 'UserIan'@'BillManagementSystem';
+--
+mysqldump -u root -p BillManagementSystem > D:/backup.sql
 
