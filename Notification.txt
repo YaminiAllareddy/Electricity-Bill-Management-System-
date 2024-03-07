@@ -1,0 +1,3 @@
+(1, 'Electricity bill is available', 458, datetime.date(2023, 6, 15), 66630947)
+(2, 'Electricity bill due date is on 20-10-2023', 762, datetime.date(2023, 10, 20), 65661993)
+(3, 'The electricity bill is added to your account', 514, datetime.date(2024, 1, 14), 1051785)

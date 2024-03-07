@@ -1,0 +1,5 @@
+(1, datetime.date(2023, 6, 15), Decimal('458.00'), 'Card', 'Paid', 66630947, 2)
+(2, datetime.date(2023, 11, 10), Decimal('762.00'), 'UPI', 'Payment successful', 65661993, 1)
+(3, datetime.date(2024, 1, 14), Decimal('514.00'), 'Cash', 'Paid', 1051785, 5)
+(4, datetime.date(2023, 11, 12), Decimal('599.00'), 'Card', 'Paid', 43242376, 3)
+(5, datetime.date(2023, 10, 9), Decimal('637.00'), 'UPI', 'Payment done', 50261572, 4)

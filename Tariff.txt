@@ -1,0 +1,6 @@
+(1, 'Specific tariffs', Decimal('26.00'))
+(2, 'Ad valorem tariffs', Decimal('38.00'))
+(3, 'Flat rate tariff', Decimal('42.00'))
+(4, 'Block rate tariff', Decimal('30.00'))
+(5, 'Revenue Tariff', Decimal('35.00'))
+(6, 'Commercial tariff', Decimal('38.00'))

@@ -1,0 +1,6 @@
+(321, datetime.date(2025, 1, 24), '674.40 kWh', 'Prepaid Meter', 66630947)
+(322, datetime.date(2025, 2, 24), '300 kWh', 'Prepaid Meter', 1051785)
+(356, datetime.date(2017, 10, 23), '429.15 kWh', 'Digital Meter', 43242376)
+(592, datetime.date(2012, 5, 23), '773.6 kWh', 'Analog Meter', 65661993)
+(651, datetime.date(6, 1, 24), '784.00 kWh', 'Digital Meter', 1051785)
+(754, datetime.date(2012, 2, 23), '933.29 kWh', 'Smart Meter', 66630947)
